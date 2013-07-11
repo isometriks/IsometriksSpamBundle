@@ -20,9 +20,19 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('isometriks_spam');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->children()
+                ->arrayNode('timed')
+                    ->canBeDisabled()
+                    ->children()
+                        ->scalarNode('min')->defaultValue(7)->end()
+                        ->scalarNode('max')->defaultValue(3600)->end()
+                        ->scalarNode('global')->defaultValue(false)->end()
+                        ->scalarNode('message')
+                            ->defaultValue('You are doing that too quickly')->end()
+                    ->end()
+                ->end()
+            ->end(); 
 
         return $treeBuilder;
     }

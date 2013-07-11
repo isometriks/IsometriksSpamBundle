@@ -6,11 +6,17 @@
 
     <parameters>
         <parameter key="isometriks_spam.form.extension.type.timed_spam.class">Isometriks\Bundle\SpamBundle\Form\Extension\Spam\Type\FormTypeTimedSpamExtension</parameter>
+        <parameter key="isometriks_spam.form.extension.provider.timed_spam.class">Isometriks\Bundle\SpamBundle\Form\Extension\Spam\Provider\SessionTimedSpamProvider</parameter>
     </parameters>
 
     <services>
+        <service id="isometriks_spam.form.extension.provider.timed_spam" class="%isometriks_spam.form.extension.provider.timed_spam.class%">
+            <argument type="service" id="session" />
+        </service>
+        
         <service id="isometriks_spam.form.extension.type.timed_spam" class="%isometriks_spam.form.extension.type.timed_spam.class%">
             <tag name="form.type_extension" alias="form" />
+            <argument type="service" id="isometriks_spam.form.extension.provider.timed_spam" />
             <argument type="service" id="translator.default" />
             <argument>%validator.translation_domain%</argument>
         </service>

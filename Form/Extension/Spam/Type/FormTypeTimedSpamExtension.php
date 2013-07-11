@@ -3,22 +3,30 @@
 namespace Isometriks\Bundle\SpamBundle\Form\Extension\Spam\Type;
 
 use Symfony\Component\Form\AbstractTypeExtension;
-use Symfony\Component\Translation\TranslatorInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Isometriks\Bundle\SpamBundle\Form\Extension\Spam\EventListener\TimedSpamValidationListener;
+use Isometriks\Bundle\SpamBundle\Form\Extension\Spam\Provider\TimedSpamProviderInterface; 
 
 class FormTypeTimedSpamExtension extends AbstractTypeExtension
 {
+    private $timeProvider; 
     private $translator;
     private $translationDomain;
+    private $defaults;
 
-    public function __construct(TranslatorInterface $translator, $translationDomain)
-    {
+    public function __construct(TimedSpamProviderInterface $timeProvider, 
+                                TranslatorInterface $translator, 
+                                $translationDomain, 
+                                array $defaults)
+    { 
+        $this->timeProvider      = $timeProvider; 
         $this->translator        = $translator;
         $this->translationDomain = $translationDomain;
+        $this->defaults          = $defaults; 
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -27,36 +35,35 @@ class FormTypeTimedSpamExtension extends AbstractTypeExtension
             return;
         }
 
+        $providerOptions = array(
+            'min' => $options['timed_spam_min'], 
+            'max' => $options['timed_spam_max'], 
+        ); 
+        
         $builder
-            ->setAttribute('timed_spam_factory', $builder->getFormFactory())
             ->addEventSubscriber(new TimedSpamValidationListener(
+                $this->timeProvider, 
                 $this->translator, 
                 $this->translationDomain, 
                 $options['timed_spam_message'],
-                $options['timed_spam_min']
+                $providerOptions
             ));
     }
-
+    
     public function finishView(FormView $view, FormInterface $form, array $options)
     {
         if ($options['timed_spam'] && !$view->parent && $options['compound']) {
-            $factory = $form->getConfig()->getAttribute('timed_spam_factory'); 
-            $data = base64_encode(time()); 
-            
-            $spamForm = $factory->createNamed('_timed_spam', 'hidden', $data, array(
-                'mapped' => false, 
-            )); 
-            
-            $view->children['_timed_spam'] = $spamForm->createView($view); 
+            $this->timeProvider->generateFormTime($form->getName()); 
         }
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'timed_spam' => false,
-            'timed_spam_min' => 7, 
-            'timed_spam_message' => 'You are doing that too quickly.',
+            'timed_spam' => $this->defaults['global'],
+            'timed_spam_min' => $this->defaults['min'], 
+            'timed_spam_max' => $this->defaults['max'], 
+            'timed_spam_message' => $this->defaults['message'],
         ));
     }
 

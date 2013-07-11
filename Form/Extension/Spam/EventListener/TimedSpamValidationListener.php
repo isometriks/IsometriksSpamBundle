@@ -7,21 +7,28 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent; 
 use Symfony\Component\Form\FormError; 
 use Symfony\Component\Translation\TranslatorInterface; 
+use Isometriks\Bundle\SpamBundle\Form\Extension\Spam\Provider\TimedSpamProviderInterface;
 
 
 class TimedSpamValidationListener implements EventSubscriberInterface
 {
+    private $timeProvider; 
     private $errorMessage; 
     private $translator; 
     private $translationDomain; 
-    private $minTime; 
+    private $options; 
     
-    public function __construct(TranslatorInterface $translator, $translationDomain, $errorMessage, $minTime)
+    public function __construct(TimedSpamProviderInterface $timeProvider, 
+                                TranslatorInterface $translator, 
+                                $translationDomain, 
+                                $errorMessage, 
+                                $options)
     {
-        $this->translator = $translator; 
-        $this->translationDomain = $translationDomain; 
-        $this->errorMessage = $errorMessage; 
-        $this->minTime = $minTime; 
+        $this->timeProvider = $timeProvider;
+        $this->translator = $translator;
+        $this->translationDomain = $translationDomain;
+        $this->errorMessage = $errorMessage;
+        $this->options = $options;
     }
     
     public function preSubmit(FormEvent $event)
@@ -29,31 +36,21 @@ class TimedSpamValidationListener implements EventSubscriberInterface
         $form = $event->getForm(); 
         $data = $event->getData(); 
         
-        if ($form->isRoot() && $form->getConfig()->getOption('compound')) {
-            if(!isset($data['_timed_spam']) || !$this->timeValid($data['_timed_spam'])){
-                $errorMessage = $this->errorMessage; 
+        if ($form->isRoot() &&
+            $form->getConfig()->getOption('compound') &&
+            !$this->timeProvider->isFormTimeValid($form->getName(), $this->options)) {
 
-                if (null !== $this->translator) {
-                    $errorMessage = $this->translator->trans($errorMessage, array(), $this->translationDomain); 
-                }
-            
-                $form->addError(new FormError($errorMessage)); 
+            $errorMessage = $this->errorMessage; 
+
+            if (null !== $this->translator) {
+                $errorMessage = $this->translator->trans($errorMessage, array(), $this->translationDomain); 
             }
-            
-            if(is_array($data)) {
-                unset($data['_timed_spam']); 
-            }
+
+            $form->addError(new FormError($errorMessage)); 
         }
         
         $event->setData($data); 
     }    
-    
-    protected function timeValid($value)
-    {
-        $time = base64_decode($value); 
-        
-        return ctype_digit($time) && (time() - $time) > $this->minTime; 
-    }
     
     public static function getSubscribedEvents()
     {
