@@ -60,16 +60,28 @@ class SessionTimedSpamProvider implements TimedSpamProviderInterface
         return $valid; 
     }
 
+    public function hasFormTime($name)
+    {
+        $key = $this->getSessionKey($name);
+        
+        return $this->session->has($key);
+    }    
+    
     public function getFormTime($name)
     {
         $key = $this->getSessionKey($name); 
         
-        if($this->session->has($key)){
+        if($this->hasFormTime($name)){            
             return $this->session->get($key);
         }
         
         return false;
     }   
+    
+    public function removeFormTime($name)
+    {
+        $this->session->remove($name);
+    }
     
     private function getSessionKey($name)
     {

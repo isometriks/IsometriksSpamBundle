@@ -49,6 +49,11 @@ class TimedSpamValidationListener implements EventSubscriberInterface
             $form->addError(new FormError($errorMessage)); 
         }
         
+        /**
+         * Remove the stored time
+         */
+        $this->timeProvider->removeFormTime($form->getName());
+        
         $event->setData($data); 
     }    
     
