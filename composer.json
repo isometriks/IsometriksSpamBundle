@@ -9,5 +9,8 @@
             "homepage": "http://isometriks.com"
         }
     ], 
+    "autoload": {
+        "psr-0": { "Isometriks\\Bundle\\SpamBundle": "" }
+    },
     "target-dir": "Isometriks/Bundle/SpamBundle"
 }
