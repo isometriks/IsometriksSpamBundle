@@ -19,7 +19,7 @@ isometriks_spam:
         min: 7
         max: 3600
         global: false
-            message: You're doing that too quickly.
+        message: You're doing that too quickly.
 ```
 
 Usage:
