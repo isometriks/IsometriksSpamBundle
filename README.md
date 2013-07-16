@@ -38,3 +38,21 @@ Or
             // ...
         ));
     }
+
+### Honeypot Spam Prevention
+
+A honeypot is a way to trick bots into filling out a field that should not 
+be filled out. It is hidden and can be named something usual so that any 
+bots / crawlers will think it is a real field. 
+
+If the field is filled out, then the form is invalid. You can optionally
+choose to use a class name to hide the form element as well in case the
+bot tries to check the style attribute. 
+
+    isometriks_spam:
+        honeypot:
+            field: email_address
+            use_class: false
+            hide_class: hidden
+            global: false
+            message: Form fields are invalid
