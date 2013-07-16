@@ -24,6 +24,7 @@ class IsometriksSpamExtension extends Extension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         
         $this->processTimedConfig($config['timed'], $container, $loader); 
+        $this->processHoneypotConfig($config['honeypot'], $container, $loader);
     }
     
     private function processTimedConfig(array $config, ContainerBuilder $container, XmlFileLoader $loader)
@@ -40,6 +41,24 @@ class IsometriksSpamExtension extends Extension
             'max' => $config['max'], 
             'global' => $config['global'], 
             'message' => $config['message'], 
+        ));
+    }
+    
+    private function processHoneypotConfig(array $config, ContainerBuilder $container, XmlFileLoader $loader)
+    {
+        if(!$this->isConfigEnabled($container, $config)){
+            return;
+        }
+        
+        $loader->load('honeypot.xml');
+        
+        $definition = $container->getDefinition('isometriks_spam.form.extension.type.honeypot');
+        $definition->addArgument(array(
+            'field' => $config['field'],
+            'use_class' => $config['use_class'],
+            'hide_class' => $config['hide_class'],
+            'global' => $config['global'],
+            'message' => $config['message'],
         ));
     }
 }
