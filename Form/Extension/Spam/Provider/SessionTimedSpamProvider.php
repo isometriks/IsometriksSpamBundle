@@ -83,8 +83,8 @@ class SessionTimedSpamProvider implements TimedSpamProviderInterface
         $this->session->remove($name);
     }
     
-    private function getSessionKey($name)
+    protected function getSessionKey($name)
     {
-        return sprintf('timedSpam[%s]', $name); 
+        return 'timedSpam/'.$name; 
     }
 }
