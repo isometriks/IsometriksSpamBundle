@@ -1,7 +1,7 @@
 # Symfony2 SpamBundle
 
-Please feel free to send pull requests. I would like to incorporate a bunch of 
-spam methods into this project. 
+Please feel free to send pull requests. I would like to incorporate a bunch of
+spam methods into this project.
 
 ### Installation
 
@@ -23,7 +23,7 @@ class AppKernel extends Kernel
             new Isometriks\Bundle\SpamBundle\IsometriksSpamBundle(),
             // ...
         );
-        
+
         return $bundles;
     }
 }
@@ -33,9 +33,15 @@ Currently we have:
 
 ### Timed Spam Prevention
 
-Requires forms to be sent after a certain amount of time. Most bots won't wait 
-to submit your forms, so requiring an amount of time between render and submit 
-can help deter these bots. 
+Requires forms to be sent after a certain amount of time. Most bots won't wait
+to submit your forms, so requiring an amount of time between render and submit
+can help deter these bots.
+
+*A side affect of this spam prevention is that you won't be able to refresh
+a page to resubmit data UNLESS the view is rendered again - `$form->createView()`
+- This is because the event listener removes the start time of the form and
+when it can't find it, will cause the form to be invalid. You could set your
+min time to 0 to just make use of this feature*
 
 Configuration:
 
@@ -52,11 +58,11 @@ Usage:
 
 ```php
 $this->createForm(new MyType(), null, array(
-    'timed_spam' => true, 
-    'timed_spam_min' => 3, 
-    'timed_spam_max' => 40, 
+    'timed_spam' => true,
+    'timed_spam_min' => 3,
+    'timed_spam_max' => 40,
     'timed_spam_message' => 'Please wait 3 seconds before submitting',
-)); 
+));
 ```
 
 Or
@@ -73,13 +79,13 @@ public function setDefaultOptions(OptionsResolverInterface $resolver)
 
 ### Honeypot Spam Prevention
 
-A honeypot is a way to trick bots into filling out a field that should not 
-be filled out. It is hidden and can be named something usual so that any 
-bots / crawlers will think it is a real field. 
+A honeypot is a way to trick bots into filling out a field that should not
+be filled out. It is hidden and can be named something usual so that any
+bots / crawlers will think it is a real field.
 
 If the field is filled out, then the form is invalid. You can optionally
 choose to use a class name to hide the form element as well in case the
-bot tries to check the style attribute. 
+bot tries to check the style attribute.
 
 ```yml
 isometriks_spam:
@@ -95,12 +101,12 @@ Usage:
 
 ```php
 $this->createForm(new MyType(), null, array(
-    'honeypot' => true, 
-    'honeypot_field' => 'email_address', 
-    'honeypot_use_class' => false, 
+    'honeypot' => true,
+    'honeypot_field' => 'email_address',
+    'honeypot_use_class' => false,
     'honeypot_hide_class' => 'hidden',
-    'honeypot_message' => 'Form field are invalid', 
-)); 
+    'honeypot_message' => 'Form field are invalid',
+));
 ```
 
 Or
