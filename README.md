@@ -38,8 +38,8 @@ to submit your forms, so requiring an amount of time between render and submit
 can help deter these bots.
 
 *A side affect of this spam prevention is that you won't be able to refresh
-a page to resubmit data UNLESS the view is rendered again - `$form->createView()`
-- This is because the event listener removes the start time of the form and
+a page to resubmit data UNLESS the view is rendered again `$form->createView()`
+This is because the event listener removes the start time of the form and
 when it can't find it, will cause the form to be invalid. You could set your
 min time to 0 to just make use of this feature*
 
