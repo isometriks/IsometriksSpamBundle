@@ -3,6 +3,32 @@
 Please feel free to send pull requests. I would like to incorporate a bunch of 
 spam methods into this project. 
 
+### Installation
+
+Install via composer:
+
+```shell
+$ php composer.phar require isometriks/spam-bundle:dev-master
+```
+
+Add to AppKernel.php:
+
+```php
+class AppKernel extends Kernel
+{
+    public function registerBundles()
+    {
+        $bundles = array(
+            // ...
+            new Isometriks\Bundle\SpamBundle\IsometriksSpamBundle(),
+            // ...
+        );
+        
+        return $bundles;
+    }
+}
+```
+
 Currently we have:
 
 ### Timed Spam Prevention
