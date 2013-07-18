@@ -80,7 +80,9 @@ class SessionTimedSpamProvider implements TimedSpamProviderInterface
 
     public function removeFormTime($name)
     {
-        $this->session->remove($name);
+        $key = $this->getSessionKey($name);
+
+        $this->session->remove($key);
     }
 
     protected function getSessionKey($name)
