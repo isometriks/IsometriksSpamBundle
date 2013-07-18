@@ -33,7 +33,7 @@ class TimedSpamValidationListener implements EventSubscriberInterface
 
     public function preSubmit(FormEvent $event)
     {
-        $form = $event->getForm(); 
+        $form = $event->getForm();
 
         if ($form->isRoot() &&
             $form->getConfig()->getOption('compound') &&
@@ -56,8 +56,10 @@ class TimedSpamValidationListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
+        $event = defined('FormEvents::PRE_SUBMIT') ? FormEvents::PRE_SUBMIT : FormEvents::PRE_BIND;
+
         return array(
-            FormEvents::PRE_SUBMIT => 'preSubmit',
+            $event => 'preSubmit',
         );
     }
 }
