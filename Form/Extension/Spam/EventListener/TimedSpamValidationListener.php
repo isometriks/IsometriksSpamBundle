@@ -2,12 +2,12 @@
 
 namespace Isometriks\Bundle\SpamBundle\Form\Extension\Spam\EventListener;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Translation\TranslatorInterface;
 use Isometriks\Bundle\SpamBundle\Form\Extension\Spam\Provider\TimedSpamProviderInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Translation\TranslatorInterface;
 
 
 class TimedSpamValidationListener implements EventSubscriberInterface
@@ -56,10 +56,8 @@ class TimedSpamValidationListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        $event = defined('FormEvents::PRE_SUBMIT') ? FormEvents::PRE_SUBMIT : FormEvents::PRE_BIND;
-
         return array(
-            $event => 'preSubmit',
+            FormEvents::PRE_SUBMIT => 'preSubmit',
         );
     }
 }
