@@ -2,13 +2,14 @@
 
 namespace Isometriks\Bundle\SpamBundle\Form\Extension\Spam\Type;
 
+use Isometriks\Bundle\SpamBundle\Form\Extension\Spam\EventListener\HoneypotValidationListener;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Isometriks\Bundle\SpamBundle\Form\Extension\Spam\EventListener\HoneypotValidationListener;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class FormTypeHoneypotExtension extends AbstractTypeExtension
 {
@@ -70,6 +71,11 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
 
             $view->children[$options['honeypot_field']] = $honeypotForm->createView($view);
         }
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $this->configureOptions($resolver);
     }
 
     public function configureOptions(OptionsResolver $resolver)

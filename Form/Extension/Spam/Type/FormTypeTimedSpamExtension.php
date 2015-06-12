@@ -2,14 +2,15 @@
 
 namespace Isometriks\Bundle\SpamBundle\Form\Extension\Spam\Type;
 
-use Symfony\Component\Form\AbstractTypeExtension;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormView;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Translation\TranslatorInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Isometriks\Bundle\SpamBundle\Form\Extension\Spam\EventListener\TimedSpamValidationListener;
 use Isometriks\Bundle\SpamBundle\Form\Extension\Spam\Provider\TimedSpamProviderInterface;
+use Symfony\Component\Form\AbstractTypeExtension;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class FormTypeTimedSpamExtension extends AbstractTypeExtension
 {
@@ -55,6 +56,11 @@ class FormTypeTimedSpamExtension extends AbstractTypeExtension
         if ($options['timed_spam'] && !$view->parent && $options['compound']) {
             $this->timeProvider->generateFormTime($form->getName());
         }
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $this->configureOptions($resolver);
     }
 
     public function configureOptions(OptionsResolver $resolver)
