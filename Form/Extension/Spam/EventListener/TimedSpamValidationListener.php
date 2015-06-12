@@ -9,7 +9,6 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Translation\TranslatorInterface;
 
-
 class TimedSpamValidationListener implements EventSubscriberInterface
 {
     private $timeProvider;
@@ -38,7 +37,6 @@ class TimedSpamValidationListener implements EventSubscriberInterface
         if ($form->isRoot() &&
             $form->getConfig()->getOption('compound') &&
             !$this->timeProvider->isFormTimeValid($form->getName(), $this->options)) {
-
             $errorMessage = $this->errorMessage;
 
             if (null !== $this->translator) {
@@ -48,7 +46,7 @@ class TimedSpamValidationListener implements EventSubscriberInterface
             $form->addError(new FormError($errorMessage));
         }
 
-        /**
+        /*
          * Remove the stored time
          */
         $this->timeProvider->removeFormTime($form->getName());

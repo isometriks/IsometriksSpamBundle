@@ -13,7 +13,7 @@
         <service id="isometriks_spam.form.extension.provider.timed_spam" class="%isometriks_spam.form.extension.provider.timed_spam.class%">
             <argument type="service" id="session" />
         </service>
-        
+
         <service id="isometriks_spam.form.extension.type.timed_spam" class="%isometriks_spam.form.extension.type.timed_spam.class%">
             <tag name="form.type_extension" alias="form" />
             <argument type="service" id="isometriks_spam.form.extension.provider.timed_spam" />

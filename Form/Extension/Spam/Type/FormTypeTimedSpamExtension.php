@@ -24,10 +24,10 @@ class FormTypeTimedSpamExtension extends AbstractTypeExtension
                                 $translationDomain,
                                 array $defaults)
     {
-        $this->timeProvider      = $timeProvider;
-        $this->translator        = $translator;
+        $this->timeProvider = $timeProvider;
+        $this->translator = $translator;
         $this->translationDomain = $translationDomain;
-        $this->defaults          = $defaults;
+        $this->defaults = $defaults;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)

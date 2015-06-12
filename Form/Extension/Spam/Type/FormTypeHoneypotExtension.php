@@ -21,9 +21,9 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
                                 $translationDomain,
                                 array $defaults)
     {
-        $this->translator        = $translator;
+        $this->translator = $translator;
         $this->translationDomain = $translationDomain;
-        $this->defaults          = $defaults;
+        $this->defaults = $defaults;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -45,8 +45,7 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
     public function finishView(FormView $view, FormInterface $form, array $options)
     {
         if ($options['honeypot'] && !$view->parent && $options['compound']) {
-
-            if($form->has($options['honeypot_field'])) {
+            if ($form->has($options['honeypot_field'])) {
                 throw new \RuntimeException(sprintf('Honeypot field "%s" is already in use.', $options['honeypot_field']));
             }
 
@@ -56,7 +55,7 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
                 'required' => false,
             );
 
-            if($options['honeypot_use_class']){
+            if ($options['honeypot_use_class']) {
                 $formOptions['attr'] = array(
                     'class' => $options['honeypot_hide_class'],
                 );

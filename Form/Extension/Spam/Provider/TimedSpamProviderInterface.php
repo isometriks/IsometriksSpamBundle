@@ -1,6 +1,6 @@
 <?php
 
-namespace Isometriks\Bundle\SpamBundle\Form\Extension\Spam\Provider; 
+namespace Isometriks\Bundle\SpamBundle\Form\Extension\Spam\Provider;
 
 interface TimedSpamProviderInterface
 {
@@ -8,34 +8,35 @@ interface TimedSpamProviderInterface
      * @return \DateTime $startTime
      */
     public function generateFormTime($name);
-    
+
     /**
-     * Check if form has time
-     * 
+     * Check if form has time.
+     *
      * @param string $name
      */
-    public function hasFormTime($name); 
-    
+    public function hasFormTime($name);
+
     /**
-     * Gets the form time for specified form
-     * 
+     * Gets the form time for specified form.
+     *
      * @param $name Name of form to get
      */
-    public function getFormTime($name); 
-    
+    public function getFormTime($name);
+
     /**
-     * Removes a form time name
-     * 
+     * Removes a form time name.
+     *
      * @param string $name
      */
-    public function removeFormTime($name); 
-    
+    public function removeFormTime($name);
+
     /**
-     * Check if form time is valid
-     * 
+     * Check if form time is valid.
+     *
      * @param string $name
-     * @param array $options
-     * @return boolean $valid
+     * @param array  $options
+     *
+     * @return bool $valid
      */
     public function isFormTimeValid($name, array $options);
 }

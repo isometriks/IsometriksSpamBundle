@@ -32,7 +32,7 @@ class HoneypotValidationListener implements EventSubscriberInterface
         $data = $event->getData();
 
         if ($form->isRoot() && $form->getConfig()->getOption('compound')) {
-            if(!isset($data[$this->fieldName]) || !empty($data[$this->fieldName])){
+            if (!isset($data[$this->fieldName]) || !empty($data[$this->fieldName])) {
                 $errorMessage = $this->errorMessage;
 
                 if (null !== $this->translator) {
@@ -42,7 +42,7 @@ class HoneypotValidationListener implements EventSubscriberInterface
                 $form->addError(new FormError($errorMessage));
             }
 
-            if(is_array($data)){
+            if (is_array($data)) {
                 unset($data[$this->fieldName]);
             }
         }
