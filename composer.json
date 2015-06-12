@@ -1,16 +1,15 @@
 {
-    "name": "isometriks/spam-bundle", 
-    "description": "Provides spam protection for Symfony2 forms", 
+    "name": "isometriks/spam-bundle",
+    "description": "Provides spam protection for Symfony2 forms",
     "keywords": ["spam", "symfony2"],
     "authors": [
         {
-            "name": "Craig Blanchette", 
+            "name": "Craig Blanchette",
             "email": "craig.blanchette@gmail.com",
             "homepage": "http://isometriks.com"
         }
-    ], 
+    ],
     "autoload": {
-        "psr-0": { "Isometriks\\Bundle\\SpamBundle": "" }
-    },
-    "target-dir": "Isometriks/Bundle/SpamBundle"
+        "psr-4": { "Isometriks\\Bundle\\SpamBundle\\": "" }
+    }
 }
