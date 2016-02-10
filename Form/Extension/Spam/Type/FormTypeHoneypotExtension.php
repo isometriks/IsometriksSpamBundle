@@ -65,6 +65,8 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
                 );
             }
 
+            $formOptions['attr']['title'] = '';
+
             $factory = $form->getConfig()->getAttribute('honeypot_factory');
             $honeypotForm = $factory->createNamed($options['honeypot_field'], 'text', null, $formOptions);
 
