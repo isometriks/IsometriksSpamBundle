@@ -10,8 +10,8 @@
 
     <services>
         <service id="isometriks_spam.form.extension.type.honeypot" class="%isometriks_spam.form.extension.type.honeypot.class%">
-            <tag name="form.type_extension" alias="form" />
-            <argument type="service" id="translator.default" />
+            <tag name="form.type_extension" extended-type="Symfony\Component\Form\Extension\Core\Type\FormType" />
+            <argument type="service" id="translator" />
             <argument>%validator.translation_domain%</argument>
         </service>
     </services>
