@@ -1,12 +1,17 @@
 {
     "name": "isometriks/spam-bundle",
-    "description": "Provides spam protection for Symfony2 forms",
-    "keywords": ["spam", "symfony2"],
+    "description": "Provides spam protection for Symfony3 forms",
+    "keywords": ["spam", "symfony3"],
     "authors": [
         {
             "name": "Craig Blanchette",
             "email": "craig.blanchette@gmail.com",
             "homepage": "http://isometriks.com"
+        },
+        {
+            "name": "Patrik Pacin",
+            "email": "github@exploit.cz",
+            "homepage": "https://exploit.cz"
         }
     ],
     "autoload": {

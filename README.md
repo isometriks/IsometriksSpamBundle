@@ -1,4 +1,4 @@
-# Symfony2 SpamBundle
+# Symfony3 SpamBundle
 
 Please feel free to send pull requests. I would like to incorporate a bunch of
 spam methods into this project.
@@ -57,7 +57,7 @@ isometriks_spam:
 Usage:
 
 ```php
-$this->createForm(new MyType(), null, array(
+$this->createForm(MyType:class, null, array(
     'timed_spam' => true,
     'timed_spam_min' => 3,
     'timed_spam_max' => 40,
@@ -68,7 +68,7 @@ $this->createForm(new MyType(), null, array(
 Or
 
 ```php
-public function setDefaultOptions(OptionsResolverInterface $resolver)
+public function configureOptions(OptionsResolver $resolver)
 {
     $resolver->setDefaults(array(
         'timed_spam' => true,
@@ -100,7 +100,7 @@ isometriks_spam:
 Usage:
 
 ```php
-$this->createForm(new MyType(), null, array(
+$this->createForm(MyType::class, null, array(
     'honeypot' => true,
     'honeypot_field' => 'email_address',
     'honeypot_use_class' => false,
@@ -112,11 +112,19 @@ $this->createForm(new MyType(), null, array(
 Or
 
 ```php
-public function setDefaultOptions(OptionsResolverInterface $resolver)
+public function configureOptions(OptionsResolver $resolver)
 {
     $resolver->setDefaults(array(
         'honeypot' => true,
         // ...
     ));
 }
+```
+
+### Twig Form Error message rendering
+
+```
+{% if form.vars.errors is not empty %}
+    <div class="alert alert-danger has-error">{{ form_errors(form) }}</div>
+{% endif %}
 ```
