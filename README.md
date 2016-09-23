@@ -11,6 +11,8 @@ Install via composer:
 $ php composer.phar require isometriks/spam-bundle:dev-master
 ```
 
+Use `~0.3.0` for Symfony 2.3-2.7, or `~1.0` for 3+
+
 Add to AppKernel.php:
 
 ```php
