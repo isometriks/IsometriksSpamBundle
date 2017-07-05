@@ -40,6 +40,8 @@ class Configuration implements ConfigurationInterface
                         ->booleanNode('use_class')->defaultFalse()->end()
                         ->scalarNode('hide_class')->defaultValue('hidden')->end()
                         ->booleanNode('global')->defaultFalse()->end()
+                        ->scalarNode('label')
+                            ->defaultValue('Please leave this field empty')->end()
                         ->scalarNode('message')
                             ->defaultValue('Form fields are invalid')->end()
                     ->end()

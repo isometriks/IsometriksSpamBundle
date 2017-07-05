@@ -53,7 +53,7 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
 
             $formOptions = array(
                 'mapped' => false,
-                'label' => false,
+                'label' => $this->defaults['label'],
                 'required' => false,
             );
 
