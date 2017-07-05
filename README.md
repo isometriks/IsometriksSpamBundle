@@ -97,6 +97,7 @@ isometriks_spam:
         hide_class: hidden
         global: false
         message: Form fields are invalid
+        label: Please leave this field empty
 ```
 
 Usage:
@@ -108,6 +109,7 @@ $this->createForm(MyType::class, null, array(
     'honeypot_use_class' => false,
     'honeypot_hide_class' => 'hidden',
     'honeypot_message' => 'Form field are invalid',
+    'label' => 'Please leave this field empty',
 ));
 ```
 

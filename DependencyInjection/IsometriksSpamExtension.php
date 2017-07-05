@@ -57,6 +57,7 @@ class IsometriksSpamExtension extends Extension
             'field' => $config['field'],
             'use_class' => $config['use_class'],
             'hide_class' => $config['hide_class'],
+            'label' => $config['label'],
             'global' => $config['global'],
             'message' => $config['message'],
         ));
