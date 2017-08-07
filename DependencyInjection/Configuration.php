@@ -44,6 +44,17 @@ class Configuration implements ConfigurationInterface
                             ->defaultValue('Form fields are invalid')->end()
                     ->end()
                 ->end()
+            
+            
+                ->arrayNode('cookie')
+                    ->canBeDisabled()
+                    ->children()
+                        ->scalarNode('name')->defaultValue('antispam')->end()
+                        ->booleanNode('global')->defaultFalse()->end()
+                        ->scalarNode('message')
+                            ->defaultValue('Something is wrong, please try again')->end()
+                    ->end()
+                ->end()
             ->end();
 
         return $treeBuilder;
