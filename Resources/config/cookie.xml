@@ -14,16 +14,16 @@
         <service id="isometriks_spam.form.extension.provider.cookie" class="%isometriks_spam.form.extension.provider.cookie.class%">
             <argument type="service" id="session" />
         </service>
-        
-        <service id="isometriks_spam.form.extension.type.cookie" class="%isometriks_spam.form.extension.type.cookie.class%" scope="request">
-            <tag name="form.type_extension" alias="form" />
+
+        <service id="isometriks_spam.form.extension.type.cookie" class="%isometriks_spam.form.extension.type.cookie.class%" public="true">
+            <tag name="form.type_extension" extended-type="Symfony\Component\Form\Extension\Core\Type\FormType" alias="form" />
             <argument type="service" id="isometriks_spam.form.extension.provider.cookie" />
-            <argument type="service" id="request" />
+            <argument type="service" id="request_stack" />
             <argument type="service" id="session" />
-            <argument type="service" id="translator.default" />
+            <argument type="service" id="translator" />
             <argument>%validator.translation_domain%</argument>
         </service>
-        
+
         <service id="isometriks_spam.exception_listener" class="%isometriks_spam.event_listener.kernel_response.class%">
             <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" />
             <argument type="service" id="isometriks_spam.form.extension.provider.cookie" />

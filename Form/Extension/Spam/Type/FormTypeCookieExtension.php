@@ -6,13 +6,13 @@ namespace Isometriks\Bundle\SpamBundle\Form\Extension\Spam\Type;
 use Isometriks\Bundle\SpamBundle\Form\Extension\Spam\EventListener\CookieValidationListener;
 use Isometriks\Bundle\SpamBundle\Form\Extension\Spam\Provider\CookieProvider;
 use Symfony\Component\Form\AbstractTypeExtension;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class FormTypeCookieExtension extends AbstractTypeExtension
@@ -24,21 +24,22 @@ class FormTypeCookieExtension extends AbstractTypeExtension
     private $translationDomain;
     private $defaults;
 
-    public function __construct(CookieProvider $cookieProvider,
-                                Request $request,
-                                Session $session, 
-                                TranslatorInterface $translator,
-                                $translationDomain,
-                                array $defaults)
-    {
+    public function __construct(
+        CookieProvider $cookieProvider,
+        RequestStack $requestStack,
+        Session $session,
+        TranslatorInterface $translator,
+        $translationDomain,
+        array $defaults
+    ) {
         $this->cookieProvider = $cookieProvider;
-        $this->request = $request;
+        $this->request = $requestStack->getCurrentRequest();
         $this->session = $session;
         $this->translator = $translator;
         $this->translationDomain = $translationDomain;
         $this->defaults = $defaults;
     }
-    
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         if (!$options['cookie']) {
@@ -61,7 +62,7 @@ class FormTypeCookieExtension extends AbstractTypeExtension
         $this->cookieProvider->setAntispamCookie($options['cookie_name']);
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolver $resolver)
     {
         $this->configureOptions($resolver);
     }
@@ -77,6 +78,6 @@ class FormTypeCookieExtension extends AbstractTypeExtension
 
     public function getExtendedType()
     {
-        return 'form';
+        return FormType::class;
     }
 }

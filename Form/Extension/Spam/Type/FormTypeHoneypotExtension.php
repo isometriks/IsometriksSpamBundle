@@ -10,7 +10,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class FormTypeHoneypotExtension extends AbstractTypeExtension
@@ -19,10 +18,11 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
     private $translationDomain;
     private $defaults;
 
-    public function __construct(TranslatorInterface $translator,
-                                $translationDomain,
-                                array $defaults)
-    {
+    public function __construct(
+        TranslatorInterface $translator,
+        $translationDomain,
+        array $defaults
+    ) {
         $this->translator = $translator;
         $this->translationDomain = $translationDomain;
         $this->defaults = $defaults;
@@ -74,7 +74,7 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
         }
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolver $resolver)
     {
         $this->configureOptions($resolver);
     }

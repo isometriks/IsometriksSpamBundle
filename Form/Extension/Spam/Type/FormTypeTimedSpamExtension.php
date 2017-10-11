@@ -20,11 +20,12 @@ class FormTypeTimedSpamExtension extends AbstractTypeExtension
     private $translationDomain;
     private $defaults;
 
-    public function __construct(TimedSpamProviderInterface $timeProvider,
-                                TranslatorInterface $translator,
-                                $translationDomain,
-                                array $defaults)
-    {
+    public function __construct(
+        TimedSpamProviderInterface $timeProvider,
+        TranslatorInterface $translator,
+        $translationDomain,
+        array $defaults
+    ) {
         $this->timeProvider = $timeProvider;
         $this->translator = $translator;
         $this->translationDomain = $translationDomain;
@@ -59,7 +60,7 @@ class FormTypeTimedSpamExtension extends AbstractTypeExtension
         }
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolver $resolver)
     {
         $this->configureOptions($resolver);
     }
