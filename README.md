@@ -11,6 +11,8 @@ Install via composer:
 $ php composer.phar require isometriks/spam-bundle:dev-master
 ```
 
+Use `~0.3.0` for Symfony 2.3-2.7, or `~1.0` for 3+
+
 Add to AppKernel.php:
 
 ```php
@@ -87,7 +89,7 @@ If the field is filled out, then the form is invalid. You can optionally
 choose to use a class name to hide the form element as well in case the
 bot tries to check the style attribute.
 
-```yml
+```YAML
 isometriks_spam:
     honeypot:
         field: email_address
@@ -119,4 +121,41 @@ public function setDefaultOptions(OptionsResolverInterface $resolver)
         // ...
     ));
 }
+```
+
+### Cookie Spam Prevention
+
+Most of spam bots can't use cookies so we could check cookie value on each request.
+
+If there is no cookie set - then the request is invalid and set by bots. 
+These cookies are not used for any tracking and are deleted after form is submitted and handled.
+
+Configuration:
+
+```YAML
+isometriks_spam:
+    cookie:
+        name: antispam_cookie
+        global: false
+        message: Something is wrong, please try again
+```
+
+Usage:
+
+```php
+public function configureOptions(OptionsResolver $resolver)
+{
+    $resolver->setDefaults(array(
+        'cookie' => true,
+        // ...
+    ));
+}
+```
+
+### Twig Form Error message rendering
+
+```twig
+{% if form.vars.errors is not empty %}
+    <div class="alert alert-danger has-error">{{ form_errors(form) }}</div>
+{% endif %}
 ```
