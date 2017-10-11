@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="isometriks_spam.form.extension.type.cookie.class">Isometriks\Bundle\SpamBundle\Form\Extension\Spam\Type\FormTypeCookieExtension</parameter>
+        <parameter key="isometriks_spam.form.extension.provider.cookie.class">Isometriks\Bundle\SpamBundle\Form\Extension\Spam\Provider\CookieProvider</parameter>
+        <parameter key="isometriks_spam.event_listener.kernel_response.class">Isometriks\Bundle\SpamBundle\EventListener\KernelResponseListener</parameter>
+    </parameters>
+
+    <services>
+        <service id="isometriks_spam.form.extension.provider.cookie" class="%isometriks_spam.form.extension.provider.cookie.class%">
+            <argument type="service" id="session" />
+        </service>
+        
+        <service id="isometriks_spam.form.extension.type.cookie" class="%isometriks_spam.form.extension.type.cookie.class%" scope="request">
+            <tag name="form.type_extension" alias="form" />
+            <argument type="service" id="isometriks_spam.form.extension.provider.cookie" />
+            <argument type="service" id="request" />
+            <argument type="service" id="session" />
+            <argument type="service" id="translator.default" />
+            <argument>%validator.translation_domain%</argument>
+        </service>
+        
+        <service id="isometriks_spam.exception_listener" class="%isometriks_spam.event_listener.kernel_response.class%">
+            <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" />
+            <argument type="service" id="isometriks_spam.form.extension.provider.cookie" />
+        </service>
+    </services>
+</container>

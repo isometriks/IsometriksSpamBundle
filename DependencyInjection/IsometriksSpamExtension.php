@@ -25,6 +25,7 @@ class IsometriksSpamExtension extends Extension
 
         $this->processTimedConfig($config['timed'], $container, $loader);
         $this->processHoneypotConfig($config['honeypot'], $container, $loader);
+        $this->processCookieConfig($config['cookie'], $container, $loader);
     }
 
     private function processTimedConfig(array $config, ContainerBuilder $container, XmlFileLoader $loader)
@@ -57,6 +58,22 @@ class IsometriksSpamExtension extends Extension
             'field' => $config['field'],
             'use_class' => $config['use_class'],
             'hide_class' => $config['hide_class'],
+            'global' => $config['global'],
+            'message' => $config['message'],
+        ));
+    }
+
+    private function processCookieConfig(array $config, ContainerBuilder $container, XmlFileLoader $loader)
+    {
+        if (!$this->isConfigEnabled($container, $config)) {
+            return;
+        }
+
+        $loader->load('cookie.xml');
+
+        $definition = $container->getDefinition('isometriks_spam.form.extension.type.cookie');
+        $definition->addArgument(array(
+            'name' => $config['name'],
             'global' => $config['global'],
             'message' => $config['message'],
         ));
