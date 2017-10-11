@@ -14,8 +14,8 @@
             <argument type="service" id="session" />
         </service>
 
-        <service id="isometriks_spam.form.extension.type.timed_spam" class="%isometriks_spam.form.extension.type.timed_spam.class%">
-            <tag name="form.type_extension" extended-type="Symfony\Component\Form\Extension\Core\Type\FormType" />
+        <service id="isometriks_spam.form.extension.type.timed_spam" class="%isometriks_spam.form.extension.type.timed_spam.class%" public="true">
+            <tag name="form.type_extension" extended-type="Symfony\Component\Form\Extension\Core\Type\FormType" alias="form" />
             <argument type="service" id="isometriks_spam.form.extension.provider.timed_spam" />
             <argument type="service" id="translator" />
             <argument>%validator.translation_domain%</argument>
