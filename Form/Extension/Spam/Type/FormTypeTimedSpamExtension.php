@@ -74,8 +74,21 @@ class FormTypeTimedSpamExtension extends AbstractTypeExtension
         ));
     }
 
+    /**
+     * @inheritdoc
+     */
+    public static function getExtendedTypes()
+    {
+        return [
+            FormType::class,
+        ];
+    }
+
     public function getExtendedType()
     {
-        return FormType::class;
+        return method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix')
+            ? FormType::class
+            : 'form' // SF <2.8 BC
+        ;
     }
 }
