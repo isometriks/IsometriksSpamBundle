@@ -5,6 +5,7 @@ namespace Isometriks\Bundle\SpamBundle\Form\Extension\Spam\Type;
 use Isometriks\Bundle\SpamBundle\Form\Extension\Spam\EventListener\TimedSpamValidationListener;
 use Isometriks\Bundle\SpamBundle\Form\Extension\Spam\Provider\TimedSpamProviderInterface;
 use Symfony\Component\Form\AbstractTypeExtension;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -73,8 +74,21 @@ class FormTypeTimedSpamExtension extends AbstractTypeExtension
         ));
     }
 
+    /**
+     * @inheritdoc
+     */
+    public static function getExtendedTypes()
+    {
+        return [
+            FormType::class,
+        ];
+    }
+
     public function getExtendedType()
     {
-        return 'form';
+        return method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix')
+            ? FormType::class
+            : 'form' // SF <2.8 BC
+        ;
     }
 }

@@ -9,6 +9,9 @@
             "homepage": "http://isometriks.com"
         }
     ],
+    "require": {
+        "symfony/form": "^2.8 | ^3.0 | ^4.0"
+    },
     "autoload": {
         "psr-4": { "Isometriks\\Bundle\\SpamBundle\\": "" }
     }
