@@ -2,6 +2,9 @@
     "name": "isometriks/spam-bundle",
     "description": "Provides spam protection for Symfony3 forms",
     "keywords": ["spam", "symfony3"],
+    "require": {
+        "symfony/form": "~3.0|~4.0"
+    },
     "authors": [
         {
             "name": "Craig Blanchette",
