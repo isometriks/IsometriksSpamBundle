@@ -21,7 +21,7 @@ class FormTypeTimedSpamExtension extends AbstractTypeExtension
     private $defaults;
 
     public function __construct(TimedSpamProviderInterface $timeProvider,
-                                TranslatorInterface $translator,
+                                TranslatorInterface $translator = null,
                                 $translationDomain,
                                 array $defaults)
     {
