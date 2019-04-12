@@ -18,7 +18,7 @@ class TimedSpamValidationListener implements EventSubscriberInterface
     private $options;
 
     public function __construct(TimedSpamProviderInterface $timeProvider,
-                                TranslatorInterface $translator,
+                                TranslatorInterface $translator = null,
                                 $translationDomain,
                                 $errorMessage,
                                 $options)

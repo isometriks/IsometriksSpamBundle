@@ -15,7 +15,7 @@ class HoneypotValidationListener implements EventSubscriberInterface
     private $fieldName;
     private $errorMessage;
 
-    public function __construct(TranslatorInterface $translator,
+    public function __construct(TranslatorInterface $translator = null,
                                 $translationDomain,
                                 $fieldName,
                                 $errorMessage)

@@ -19,7 +19,7 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
     private $translationDomain;
     private $defaults;
 
-    public function __construct(TranslatorInterface $translator,
+    public function __construct(TranslatorInterface $translator = null,
                                 $translationDomain,
                                 array $defaults)
     {
