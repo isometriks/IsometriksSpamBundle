@@ -4,8 +4,8 @@ namespace Isometriks\Bundle\SpamBundle\Form\Extension\Spam\Type;
 
 use Isometriks\Bundle\SpamBundle\Form\Extension\Spam\EventListener\HoneypotValidationListener;
 use Symfony\Component\Form\AbstractTypeExtension;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -68,7 +68,7 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
             }
 
             $factory = $form->getConfig()->getAttribute('honeypot_factory');
-            $honeypotForm = $factory->createNamed($options['honeypot_field'], TextType::class, null, $formOptions);
+            $honeypotForm = $factory->createNamed($options['honeypot_field'], EmailType::class, null, $formOptions);
 
             $view->children[$options['honeypot_field']] = $honeypotForm->createView($view);
         }
