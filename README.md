@@ -59,6 +59,7 @@ isometriks_spam:
         min: 7
         max: 3600
         global: false
+        # message also takes translator strings.
         message: You're doing that too quickly.
 ```
 
