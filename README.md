@@ -58,7 +58,7 @@ Configuration:
 # what you'd like to change. 
 isometriks_spam:
     timed:
-        min: 7
+        min: 7 # seconds
         max: 3600
         global: false
         # message also takes translator strings.
@@ -135,12 +135,12 @@ public function configureOptions(OptionsResolver $resolver)
 }
 ```
 
-### Twig Form Error message rendering
+### Twig Form Error Message Rendering
 
 Form errors come from the form itself, so if you want to display the errors
 you'll need to make sure this is in your template.
 
-```
+```twig
 {% if form.vars.errors is not empty %}
     {{ form_errors(form) }}
 {% endif %}
