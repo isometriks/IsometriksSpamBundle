@@ -52,6 +52,8 @@ could affect those users who only need to fix one field quickly*
 Configuration:
 
 ```YAML
+# config/packages/isometriks_spam.yaml
+
 # Copying this config is not necessary. These are defaults, only copy 
 # what you'd like to change. 
 isometriks_spam:
@@ -66,9 +68,8 @@ isometriks_spam:
 Usage:
 
 ```php
-// Only timed_spam = true is required to enable, the rest are to override settings
 $this->createForm(MyType:class, null, [
-    'timed_spam' => true,
+    'timed_spam' => true, // Just this line is required to enable this feature, the rest is to override settings
     'timed_spam_min' => 3,
     'timed_spam_max' => 40,
     'timed_spam_message' => 'Please wait 3 seconds before submitting',
