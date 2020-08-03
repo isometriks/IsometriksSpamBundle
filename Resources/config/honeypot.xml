@@ -7,7 +7,7 @@
     <services>
         <service id="isometriks_spam.form.extension.type.honeypot" class="Isometriks\Bundle\SpamBundle\Form\Extension\Spam\Type\FormTypeHoneypotExtension">
             <tag name="form.type_extension" extended-type="Symfony\Component\Form\Extension\Core\Type\FormType" />
-            <argument type="service" id="translator" on-invalid="ignore" />
+            <argument type="service" id="translator" on-invalid="null" />
             <argument>%validator.translation_domain%</argument>
         </service>
     </services>
