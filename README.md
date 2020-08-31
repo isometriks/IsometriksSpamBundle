@@ -52,11 +52,13 @@ could affect those users who only need to fix one field quickly*
 Configuration:
 
 ```YAML
+# config/packages/isometriks_spam.yaml
+
 # Copying this config is not necessary. These are defaults, only copy 
 # what you'd like to change. 
 isometriks_spam:
     timed:
-        min: 7
+        min: 7 # seconds
         max: 3600
         global: false
         # message also takes translator strings.
@@ -66,9 +68,8 @@ isometriks_spam:
 Usage:
 
 ```php
-// Only timed_spam = true is required to enable, the rest are to override settings
 $this->createForm(MyType:class, null, [
-    'timed_spam' => true,
+    'timed_spam' => true, // Just this line is required to enable this feature, the rest is to override settings
     'timed_spam_min' => 3,
     'timed_spam_max' => 40,
     'timed_spam_message' => 'Please wait 3 seconds before submitting',
@@ -118,7 +119,7 @@ $this->createForm(MyType::class, null, [
     'honeypot_field' => 'email_address',
     'honeypot_use_class' => false,
     'honeypot_hide_class' => 'hidden',
-    'honeypot_message' => 'Form field are invalid',
+    'honeypot_message' => 'Form fields are invalid',
 ]);
 ```
 
@@ -134,12 +135,12 @@ public function configureOptions(OptionsResolver $resolver)
 }
 ```
 
-### Twig Form Error message rendering
+### Twig Form Error Message Rendering
 
 Form errors come from the form itself, so if you want to display the errors
 you'll need to make sure this is in your template.
 
-```
+```twig
 {% if form.vars.errors is not empty %}
     {{ form_errors(form) }}
 {% endif %}
