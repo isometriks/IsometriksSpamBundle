@@ -75,4 +75,9 @@ class FormTypeTimedSpamExtension extends AbstractTypeExtension
     {
         return [FormType::class];
     }
+
+    public function getExtendedType()
+    {
+        return FormType::class;
+    }
 }
