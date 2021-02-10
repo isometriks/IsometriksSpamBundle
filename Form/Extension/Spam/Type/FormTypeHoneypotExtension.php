@@ -54,16 +54,16 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
                 'mapped' => false,
                 'label' => false,
                 'required' => false,
+                'attr' => [
+                    'autocomplete' => 'off',
+                    'tabindex' => '-1',
+                ]
             );
 
             if ($options['honeypot_use_class']) {
-                $formOptions['attr'] = array(
-                    'class' => $options['honeypot_hide_class'],
-                );
+                $formOptions['attr']['class'] = $options['honeypot_hide_class'];
             } else {
-                $formOptions['attr'] = array(
-                    'style' => 'display:none',
-                );
+                $formOptions['attr']['style'] = 'display:none';
             }
 
             $factory = $form->getConfig()->getAttribute('honeypot_factory');
