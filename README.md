@@ -49,6 +49,9 @@ min time to 0 to just make use of this feature*
 are not filled in correctly and need to be resubmitted. A high minimum time 
 could affect those users who only need to fix one field quickly*
 
+The time is stored in the session. This means that if there is no session, a new
+one is started automatically.
+
 Configuration:
 
 ```YAML
@@ -57,7 +60,7 @@ Configuration:
 isometriks_spam:
     timed:
         min: 7
-        max: 3600
+        max: 3600 # If you omit this line, the max time is determined by `session.gc_maxlifetime` in your `php.ini`
         global: false
         # message also takes translator strings.
         message: You're doing that too quickly.
