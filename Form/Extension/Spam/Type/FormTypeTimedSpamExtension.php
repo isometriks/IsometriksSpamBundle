@@ -14,15 +14,17 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FormTypeTimedSpamExtension extends AbstractTypeExtension
 {
-    private $timeProvider;
-    private $translator;
-    private $translationDomain;
-    private $defaults;
+    private TimedSpamProviderInterface $timeProvider;
+    private ?TranslatorInterface $translator;
+    private string $translationDomain;
+    private array $defaults;
 
-    public function __construct(TimedSpamProviderInterface $timeProvider,
-                                TranslatorInterface $translator = null,
-                                $translationDomain,
-                                array $defaults)
+    public function __construct(
+        TimedSpamProviderInterface $timeProvider,
+        ?TranslatorInterface $translator,
+        string $translationDomain,
+        array $defaults
+    )
     {
         $this->timeProvider = $timeProvider;
         $this->translator = $translator;
@@ -30,7 +32,7 @@ class FormTypeTimedSpamExtension extends AbstractTypeExtension
         $this->defaults = $defaults;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         if (!$options['timed_spam']) {
             return;
@@ -51,7 +53,7 @@ class FormTypeTimedSpamExtension extends AbstractTypeExtension
             ));
     }
 
-    public function finishView(FormView $view, FormInterface $form, array $options)
+    public function finishView(FormView $view, FormInterface $form, array $options): void
     {
         if ($options['timed_spam'] && !$view->parent && $options['compound']) {
             $this->timeProvider->generateFormTime($form->getName());
@@ -76,7 +78,7 @@ class FormTypeTimedSpamExtension extends AbstractTypeExtension
         return [FormType::class];
     }
 
-    public function getExtendedType()
+    public function getExtendedType(): string
     {
         return FormType::class;
     }

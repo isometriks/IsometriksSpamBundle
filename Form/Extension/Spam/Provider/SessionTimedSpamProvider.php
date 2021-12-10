@@ -2,28 +2,30 @@
 
 namespace Isometriks\Bundle\SpamBundle\Form\Extension\Spam\Provider;
 
-use Symfony\Component\HttpFoundation\Session\Session;
+use DateTime;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class SessionTimedSpamProvider implements TimedSpamProviderInterface
 {
-    protected $session;
+    private RequestStack $requestStack;
 
-    public function __construct(Session $session)
+    public function __construct(RequestStack $requestStack)
     {
-        $this->session = $session;
+        $this->requestStack = $requestStack;
     }
 
-    public function generateFormTime($name)
+    public function generateFormTime(string $name): DateTime
     {
-        $startTime = new \DateTime();
+        $startTime = new DateTime();
         $key = $this->getSessionKey($name);
 
-        $this->session->set($key, $startTime);
+        $this->getSession()->set($key, $startTime);
 
         return $startTime;
     }
 
-    public function isFormTimeValid($name, array $options)
+    public function isFormTimeValid(string $name, array $options): bool
     {
         $valid = true;
         $startTime = $this->getFormTime($name);
@@ -35,7 +37,7 @@ class SessionTimedSpamProvider implements TimedSpamProviderInterface
             return false;
         }
 
-        $currentTime = new \DateTime();
+        $currentTime = new DateTime();
 
         /*
          * Check against a minimum time
@@ -60,33 +62,38 @@ class SessionTimedSpamProvider implements TimedSpamProviderInterface
         return $valid;
     }
 
-    public function hasFormTime($name)
+    public function hasFormTime(string $name): bool
     {
         $key = $this->getSessionKey($name);
 
-        return $this->session->has($key);
+        return $this->getSession()->has($key);
     }
 
-    public function getFormTime($name)
+    public function getFormTime(string $name)
     {
         $key = $this->getSessionKey($name);
 
         if ($this->hasFormTime($name)) {
-            return $this->session->get($key);
+            return $this->getSession()->get($key);
         }
 
         return false;
     }
 
-    public function removeFormTime($name)
+    public function removeFormTime(string $name): void
     {
         $key = $this->getSessionKey($name);
 
-        $this->session->remove($key);
+        $this->getSession()->remove($key);
     }
 
-    protected function getSessionKey($name)
+    protected function getSessionKey(string $name): string
     {
         return 'timedSpam/'.$name;
+    }
+
+    protected function getSession(): SessionInterface
+    {
+        return $this->requestStack->getCurrentRequest()->getSession();
     }
 }

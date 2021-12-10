@@ -11,17 +11,19 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class TimedSpamValidationListener implements EventSubscriberInterface
 {
-    private $timeProvider;
-    private $errorMessage;
-    private $translator;
-    private $translationDomain;
-    private $options;
+    private TimedSpamProviderInterface $timeProvider;
+    private string $errorMessage;
+    private ?TranslatorInterface $translator;
+    private string $translationDomain;
+    private array $options;
 
-    public function __construct(TimedSpamProviderInterface $timeProvider,
-                                TranslatorInterface $translator = null,
-                                $translationDomain,
-                                $errorMessage,
-                                $options)
+    public function __construct(
+        TimedSpamProviderInterface $timeProvider,
+        ?TranslatorInterface $translator,
+        string $translationDomain,
+        string $errorMessage,
+        array $options
+    )
     {
         $this->timeProvider = $timeProvider;
         $this->translator = $translator;
@@ -30,7 +32,7 @@ class TimedSpamValidationListener implements EventSubscriberInterface
         $this->options = $options;
     }
 
-    public function preSubmit(FormEvent $event)
+    public function preSubmit(FormEvent $event): void
     {
         $form = $event->getForm();
 
@@ -52,7 +54,7 @@ class TimedSpamValidationListener implements EventSubscriberInterface
         $this->timeProvider->removeFormTime($form->getName());
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return array(
             FormEvents::PRE_SUBMIT => 'preSubmit',

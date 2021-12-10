@@ -15,17 +15,12 @@ class Configuration implements ConfigurationInterface
     /**
      * {@inheritDoc}
      */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('isometriks_spam');
-        if (\method_exists($treeBuilder, 'getRootNode')) {
-            $rootNode = $treeBuilder->getRootNode();
-        } else {
-            // BC layer for symfony/config 4.1 and older
-            $rootNode = $treeBuilder->root('isometriks_spam');
-        }
 
-        $rootNode
+        $treeBuilder
+            ->getRootNode()
             ->children()
                 ->arrayNode('timed')
                     ->canBeDisabled()

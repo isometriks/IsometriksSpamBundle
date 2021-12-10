@@ -6,7 +6,7 @@
 
     <services>
         <service id="isometriks_spam.form.extension.provider.timed_spam" class="Isometriks\Bundle\SpamBundle\Form\Extension\Spam\Provider\SessionTimedSpamProvider">
-            <argument type="service" id="session" />
+            <argument type="service" id="request_stack" />
         </service>
 
         <service id="isometriks_spam.form.extension.type.timed_spam" class="Isometriks\Bundle\SpamBundle\Form\Extension\Spam\Type\FormTypeTimedSpamExtension">

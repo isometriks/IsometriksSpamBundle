@@ -17,7 +17,7 @@ class IsometriksSpamExtension extends Extension
     /**
      * {@inheritDoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
@@ -27,7 +27,7 @@ class IsometriksSpamExtension extends Extension
         $this->processHoneypotConfig($config['honeypot'], $container, $loader);
     }
 
-    private function processTimedConfig(array $config, ContainerBuilder $container, XmlFileLoader $loader)
+    private function processTimedConfig(array $config, ContainerBuilder $container, XmlFileLoader $loader): void
     {
         if (!$this->isConfigEnabled($container, $config)) {
             return;
@@ -44,7 +44,7 @@ class IsometriksSpamExtension extends Extension
         ));
     }
 
-    private function processHoneypotConfig(array $config, ContainerBuilder $container, XmlFileLoader $loader)
+    private function processHoneypotConfig(array $config, ContainerBuilder $container, XmlFileLoader $loader): void
     {
         if (!$this->isConfigEnabled($container, $config)) {
             return;
