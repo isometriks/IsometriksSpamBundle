@@ -3,7 +3,15 @@
     "description": "Provides spam protection for Symfony3 forms",
     "keywords": ["spam", "symfony3"],
     "require": {
-        "symfony/form": "~3.0|~4.0|~5.0"
+        "php": ">=7.4",
+        "symfony/config": "^4.4 || ^5.4 || ^6.0",
+        "symfony/dependency-injection": "^4.4 || ^5.4 || ^6.0",
+        "symfony/event-dispatcher": "^4.4 || ^5.4 || ^6.0",
+        "symfony/form": "^4.4 || ^5.4 || ^6.0",
+        "symfony/http-foundation": "^4.4 || ^5.4 || ^6.0",
+        "symfony/http-kernel": "^4.4 || ^5.4 || ^6.0",
+        "symfony/options-resolver": "^4.4 || ^5.4 || ^6.0",
+        "symfony/translation-contracts": "1.0 || ^2.0"
     },
     "authors": [
         {

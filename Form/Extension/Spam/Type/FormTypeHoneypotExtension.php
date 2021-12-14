@@ -14,20 +14,22 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FormTypeHoneypotExtension extends AbstractTypeExtension
 {
-    private $translator;
-    private $translationDomain;
-    private $defaults;
+    private ?TranslatorInterface $translator;
+    private string $translationDomain;
+    private array $defaults;
 
-    public function __construct(TranslatorInterface $translator = null,
-                                $translationDomain,
-                                array $defaults)
+    public function __construct(
+        ?TranslatorInterface $translator,
+        string $translationDomain,
+        array $defaults
+    )
     {
         $this->translator = $translator;
         $this->translationDomain = $translationDomain;
         $this->defaults = $defaults;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         if (!$options['honeypot']) {
             return;
@@ -43,7 +45,7 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
             ));
     }
 
-    public function finishView(FormView $view, FormInterface $form, array $options)
+    public function finishView(FormView $view, FormInterface $form, array $options): void
     {
         if ($options['honeypot'] && !$view->parent && $options['compound']) {
             if ($form->has($options['honeypot_field'])) {
@@ -73,7 +75,7 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
         }
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(array(
             'honeypot' => $this->defaults['global'],
@@ -92,7 +94,7 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
         return [FormType::class];
     }
 
-    public function getExtendedType()
+    public function getExtendedType(): string
     {
         return FormType::class;
     }
