@@ -11,7 +11,12 @@
         "symfony/http-foundation": "^4.4 || ^5.4 || ^6.0",
         "symfony/http-kernel": "^4.4 || ^5.4 || ^6.0",
         "symfony/options-resolver": "^4.4 || ^5.4 || ^6.0",
-        "symfony/translation-contracts": "1.0 || ^2.0 || ^3.0"
+        "symfony/translation-contracts": "1.0 || ^2.0 || ^3.0",
+        "symfony/framework-bundle": "^4.4 || ^5.4 || ^6.0"
+    },
+    "require-dev": {
+        "symfony/phpunit-bridge": "^4.4 || ^5.4 || ^6.0",
+        "symfony/yaml": "^4.4 || ^5.4 || ^6.3"
     },
     "authors": [
         {
@@ -26,6 +31,9 @@
         }
     ],
     "autoload": {
-        "psr-4": { "Isometriks\\Bundle\\SpamBundle\\": "" }
+        "psr-4": {
+            "Isometriks\\Bundle\\SpamBundle\\": "",
+            "Isometriks\\Bundle\\SpamBundle\\Tests\\": "tests/"
+        }
     }
 }
