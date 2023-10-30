@@ -60,7 +60,7 @@ class FormTypeTimedSpamExtension extends AbstractTypeExtension
         }
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(array(
             'timed_spam' => $this->defaults['global'],

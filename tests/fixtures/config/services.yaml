@@ -1,0 +1,5 @@
+services:
+  # Needed to make the form.factory public
+  form.factory.custom:
+    alias: 'form.factory'
+    public: true
