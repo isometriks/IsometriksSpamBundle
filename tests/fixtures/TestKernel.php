@@ -23,7 +23,7 @@ class TestKernel extends Kernel
     {
         return [
             new FrameworkBundle(),
-            new IsometriksSpamBundle()
+            new IsometriksSpamBundle(),
         ];
     }
 
@@ -42,12 +42,10 @@ class TestKernel extends Kernel
             'secret' => 'foo',
             'test' => true,
             'http_method_override' => true,
-            'handle_all_throwables' => true,
             'php_errors' => [
                 'log' => true,
             ],
         ]);
-
     }
 
     public function getCacheDir(): string

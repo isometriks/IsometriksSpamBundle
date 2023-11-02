@@ -24,8 +24,7 @@ class FormTypeTimedSpamExtension extends AbstractTypeExtension
         ?TranslatorInterface $translator,
         string $translationDomain,
         array $defaults
-    )
-    {
+    ) {
         $this->timeProvider = $timeProvider;
         $this->translator = $translator;
         $this->translationDomain = $translationDomain;
@@ -38,10 +37,10 @@ class FormTypeTimedSpamExtension extends AbstractTypeExtension
             return;
         }
 
-        $providerOptions = array(
+        $providerOptions = [
             'min' => $options['timed_spam_min'],
             'max' => $options['timed_spam_max'],
-        );
+        ];
 
         $builder
             ->addEventSubscriber(new TimedSpamValidationListener(
@@ -62,17 +61,14 @@ class FormTypeTimedSpamExtension extends AbstractTypeExtension
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'timed_spam' => $this->defaults['global'],
             'timed_spam_min' => $this->defaults['min'],
             'timed_spam_max' => $this->defaults['max'],
             'timed_spam_message' => $this->defaults['message'],
-        ));
+        ]);
     }
 
-    /**
-     * @inheritdoc
-     */
     public static function getExtendedTypes(): iterable
     {
         return [FormType::class];

@@ -23,8 +23,7 @@ class TimedSpamValidationListener implements EventSubscriberInterface
         string $translationDomain,
         string $errorMessage,
         array $options
-    )
-    {
+    ) {
         $this->timeProvider = $timeProvider;
         $this->translator = $translator;
         $this->translationDomain = $translationDomain;
@@ -36,13 +35,13 @@ class TimedSpamValidationListener implements EventSubscriberInterface
     {
         $form = $event->getForm();
 
-        if ($form->isRoot() &&
-            $form->getConfig()->getOption('compound') &&
-            !$this->timeProvider->isFormTimeValid($form->getName(), $this->options)) {
+        if ($form->isRoot()
+            && $form->getConfig()->getOption('compound')
+            && !$this->timeProvider->isFormTimeValid($form->getName(), $this->options)) {
             $errorMessage = $this->errorMessage;
 
             if (null !== $this->translator) {
-                $errorMessage = $this->translator->trans($errorMessage, array(), $this->translationDomain);
+                $errorMessage = $this->translator->trans($errorMessage, [], $this->translationDomain);
             }
 
             $form->addError(new FormError($errorMessage));
@@ -58,9 +57,9 @@ class TimedSpamValidationListener implements EventSubscriberInterface
     {
         $form = $event->getForm();
 
-        if ($form->isRoot() &&
-            $form->getConfig()->getOption('compound') &&
-            !$form->isValid()) {
+        if ($form->isRoot()
+            && $form->getConfig()->getOption('compound')
+            && !$form->isValid()) {
             // If the form has errors, set the time again
             $this->timeProvider->generateFormTime($form->getName());
         }
@@ -68,9 +67,9 @@ class TimedSpamValidationListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        return array(
+        return [
             FormEvents::PRE_SUBMIT => 'preSubmit',
             FormEvents::POST_SUBMIT => 'postSubmit',
-        );
+        ];
     }
 }
