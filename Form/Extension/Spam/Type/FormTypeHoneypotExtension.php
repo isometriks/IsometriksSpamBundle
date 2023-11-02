@@ -22,8 +22,7 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
         ?TranslatorInterface $translator,
         string $translationDomain,
         array $defaults
-    )
-    {
+    ) {
         $this->translator = $translator;
         $this->translationDomain = $translationDomain;
         $this->defaults = $defaults;
@@ -52,20 +51,20 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
                 throw new \RuntimeException(sprintf('Honeypot field "%s" is already in use.', $options['honeypot_field']));
             }
 
-            $formOptions = array(
+            $formOptions = [
                 'mapped' => false,
                 'label' => false,
                 'required' => false,
-            );
+            ];
 
             if ($options['honeypot_use_class']) {
-                $formOptions['attr'] = array(
+                $formOptions['attr'] = [
                     'class' => $options['honeypot_hide_class'],
-                );
+                ];
             } else {
-                $formOptions['attr'] = array(
+                $formOptions['attr'] = [
                     'style' => 'display:none',
-                );
+                ];
             }
 
             $factory = $form->getConfig()->getAttribute('honeypot_factory');
@@ -77,18 +76,15 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'honeypot' => $this->defaults['global'],
             'honeypot_use_class' => $this->defaults['use_class'],
             'honeypot_hide_class' => $this->defaults['hide_class'],
             'honeypot_field' => $this->defaults['field'],
             'honeypot_message' => $this->defaults['message'],
-        ));
+        ]);
     }
 
-    /**
-     * @inheritdoc
-     */
     public static function getExtendedTypes(): iterable
     {
         return [FormType::class];

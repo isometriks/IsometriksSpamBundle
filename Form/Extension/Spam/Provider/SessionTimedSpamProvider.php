@@ -2,7 +2,6 @@
 
 namespace Isometriks\Bundle\SpamBundle\Form\Extension\Spam\Provider;
 
-use DateTime;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -15,9 +14,9 @@ class SessionTimedSpamProvider implements TimedSpamProviderInterface
         $this->requestStack = $requestStack;
     }
 
-    public function generateFormTime(string $name): DateTime
+    public function generateFormTime(string $name): \DateTime
     {
-        $startTime = new DateTime();
+        $startTime = new \DateTime();
         $key = $this->getSessionKey($name);
 
         $this->getSession()->set($key, $startTime);
@@ -33,16 +32,16 @@ class SessionTimedSpamProvider implements TimedSpamProviderInterface
         /*
          * No value stored, so this can't be valid or session expired.
          */
-        if ($startTime === false) {
+        if (false === $startTime) {
             return false;
         }
 
-        $currentTime = new DateTime();
+        $currentTime = new \DateTime();
 
         /*
          * Check against a minimum time
          */
-        if ($options['min'] !== null) {
+        if (null !== $options['min']) {
             $minTime = clone $startTime;
             $minTime->modify(sprintf('+%d seconds', $options['min']));
 
@@ -52,7 +51,7 @@ class SessionTimedSpamProvider implements TimedSpamProviderInterface
         /*
          * Check against a maximum time
          */
-        if ($options['max'] !== null) {
+        if (null !== $options['max']) {
             $maxTime = clone $startTime;
             $maxTime->modify(sprintf('+%d seconds', $options['max']));
 

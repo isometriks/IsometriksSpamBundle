@@ -2,23 +2,15 @@
 
 namespace Isometriks\Bundle\SpamBundle\Form\Extension\Spam\Provider;
 
-use DateTime;
-
 interface TimedSpamProviderInterface
 {
     /**
      * Generate form time.
-     *
-     * @param string $name
-     *
-     * @return DateTime
      */
-    public function generateFormTime(string $name): DateTime;
+    public function generateFormTime(string $name): \DateTime;
 
     /**
      * Check if form has time.
-     *
-     * @param string $name
      */
     public function hasFormTime(string $name): bool;
 
@@ -31,16 +23,11 @@ interface TimedSpamProviderInterface
 
     /**
      * Removes a form time name.
-     *
-     * @param string $name
      */
     public function removeFormTime(string $name): void;
 
     /**
      * Check if form time is valid.
-     *
-     * @param string $name
-     * @param array  $options
      *
      * @return bool $valid
      */

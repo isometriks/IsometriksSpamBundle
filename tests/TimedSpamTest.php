@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\Session\SessionFactory;
 use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorageFactory;
 
 class TimedSpamTest extends KernelTestCase
@@ -49,7 +48,7 @@ class TimedSpamTest extends KernelTestCase
                 ],
                 [
                     'timed_spam' => false,
-                ]
+                ],
             ],
             'no_timed_spam_with_options' => [
                 [
@@ -61,7 +60,7 @@ class TimedSpamTest extends KernelTestCase
                     'timed_spam_min' => 3,
                     'timed_spam_max' => 40,
                     'timed_spam_message' => 'Please wait 3 seconds before submitting',
-                ]
+                ],
             ],
             'timed_spam_min_0' => [
                 [
@@ -71,7 +70,7 @@ class TimedSpamTest extends KernelTestCase
                 [
                     'timed_spam' => true,
                     'timed_spam_min' => 0,
-                ]
+                ],
             ],
             'timed_spam_min_1' => [
                 [
@@ -82,7 +81,7 @@ class TimedSpamTest extends KernelTestCase
                     'timed_spam' => true,
                     'timed_spam_min' => 1,
                 ],
-                1
+                1,
             ],
             'timed_spam_min_0_max_1' => [
                 [
@@ -93,8 +92,8 @@ class TimedSpamTest extends KernelTestCase
                     'timed_spam' => true,
                     'timed_spam_min' => 0,
                     'timed_spam_max' => 1,
-                ]
-            ]
+                ],
+            ],
         ];
     }
 
@@ -129,7 +128,7 @@ class TimedSpamTest extends KernelTestCase
                 [
                     'timed_spam' => true,
                     'timed_spam_min' => 1,
-                ]
+                ],
             ],
             'timed_spam_max_0' => [
                 [
@@ -139,7 +138,7 @@ class TimedSpamTest extends KernelTestCase
                 [
                     'timed_spam' => true,
                     'timed_spam_max' => 0,
-                ]
+                ],
             ],
             'timed_spam_max_1' => [
                 [
@@ -150,7 +149,7 @@ class TimedSpamTest extends KernelTestCase
                     'timed_spam' => true,
                     'timed_spam_max' => 1,
                 ],
-                1
+                1,
             ],
             // Maybe this should rather throw an error during option resolution ?
             'timed_spam_min_2_max_1' => [
@@ -162,7 +161,7 @@ class TimedSpamTest extends KernelTestCase
                     'timed_spam' => true,
                     'timed_spam_min' => 2,
                     'timed_spam_max' => 1,
-                ]
+                ],
             ],
             'timed_spam_with_error_message' => [
                 [
@@ -175,7 +174,7 @@ class TimedSpamTest extends KernelTestCase
                     'timed_spam_message' => 'Please wait 1 second before submitting',
                 ],
                 0,
-                'Please wait 1 second before submitting'
+                'Please wait 1 second before submitting',
             ],
         ];
     }

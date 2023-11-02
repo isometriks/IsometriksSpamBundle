@@ -20,7 +20,7 @@ class HoneyPotTest extends KernelTestCase
         }
         $form = $formBuilder->getForm();
         $form->submit($data);
-        $this->assertEquals(true, $form->isValid());
+        $this->assertTrue($form->isValid());
         $this->assertEmpty($form->getErrors());
     }
 
@@ -34,7 +34,7 @@ class HoneyPotTest extends KernelTestCase
                 ],
                 [
                     'honeypot' => false,
-                ]
+                ],
             ],
             'no_honeypot_with_field' => [
                 [
@@ -44,7 +44,7 @@ class HoneyPotTest extends KernelTestCase
                 [
                     'honeypot' => false,
                     'honeypot_field' => 'phone',
-                ]
+                ],
             ],
             'honeypot_on_phone' => [
                 [
@@ -54,7 +54,7 @@ class HoneyPotTest extends KernelTestCase
                 [
                     'honeypot' => true,
                     'honeypot_field' => 'phone',
-                ]
+                ],
             ],
             'honeypot_on_email' => [
                 [
@@ -64,8 +64,8 @@ class HoneyPotTest extends KernelTestCase
                 [
                     'honeypot' => true,
                     'honeypot_field' => 'email',
-                ]
-            ]
+                ],
+            ],
         ];
     }
 
@@ -98,7 +98,7 @@ class HoneyPotTest extends KernelTestCase
                 [
                     'honeypot' => true,
                     'honeypot_field' => 'phone',
-                ]
+                ],
             ],
             'honeypot_field_not_submitted' => [
                 [
@@ -118,7 +118,7 @@ class HoneyPotTest extends KernelTestCase
                 [
                     'honeypot' => true,
                     'honeypot_field' => 'phone',
-                ]
+                ],
             ],
             'honeypot_with_error_message' => [
                 [
@@ -130,7 +130,7 @@ class HoneyPotTest extends KernelTestCase
                     'honeypot_field' => 'email',
                     'honeypot_message' => 'We detected a strange behaviour in your form submission. Please try again.',
                 ],
-                'We detected a strange behaviour in your form submission. Please try again.'
+                'We detected a strange behaviour in your form submission. Please try again.',
             ],
         ];
     }

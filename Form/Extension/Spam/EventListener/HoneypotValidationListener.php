@@ -20,8 +20,7 @@ class HoneypotValidationListener implements EventSubscriberInterface
         string $translationDomain,
         string $fieldName,
         string $errorMessage
-    )
-    {
+    ) {
         $this->translator = $translator;
         $this->translationDomain = $translationDomain;
         $this->fieldName = $fieldName;
@@ -38,13 +37,13 @@ class HoneypotValidationListener implements EventSubscriberInterface
                 $errorMessage = $this->errorMessage;
 
                 if (null !== $this->translator) {
-                    $errorMessage = $this->translator->trans($errorMessage, array(), $this->translationDomain);
+                    $errorMessage = $this->translator->trans($errorMessage, [], $this->translationDomain);
                 }
 
                 $form->addError(new FormError($errorMessage));
             }
 
-            if (is_array($data)) {
+            if (\is_array($data)) {
                 unset($data[$this->fieldName]);
             }
         }
@@ -54,8 +53,8 @@ class HoneypotValidationListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        return array(
+        return [
             FormEvents::PRE_SUBMIT => 'preSubmit',
-        );
+        ];
     }
 }

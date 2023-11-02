@@ -2,10 +2,10 @@
 
 namespace Isometriks\Bundle\SpamBundle\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * This is the class that loads and manages your bundle configuration.
@@ -14,9 +14,6 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
  */
 class IsometriksSpamExtension extends Extension
 {
-    /**
-     * {@inheritDoc}
-     */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
@@ -36,12 +33,12 @@ class IsometriksSpamExtension extends Extension
         $loader->load('timed.xml');
 
         $definition = $container->getDefinition('isometriks_spam.form.extension.type.timed_spam');
-        $definition->addArgument(array(
+        $definition->addArgument([
             'min' => $config['min'],
             'max' => $config['max'],
             'global' => $config['global'],
             'message' => $config['message'],
-        ));
+        ]);
     }
 
     private function processHoneypotConfig(array $config, ContainerBuilder $container, XmlFileLoader $loader): void
@@ -53,12 +50,12 @@ class IsometriksSpamExtension extends Extension
         $loader->load('honeypot.xml');
 
         $definition = $container->getDefinition('isometriks_spam.form.extension.type.honeypot');
-        $definition->addArgument(array(
+        $definition->addArgument([
             'field' => $config['field'],
             'use_class' => $config['use_class'],
             'hide_class' => $config['hide_class'],
             'global' => $config['global'],
             'message' => $config['message'],
-        ));
+        ]);
     }
 }
