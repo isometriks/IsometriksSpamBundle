@@ -11,24 +11,15 @@ Install via Composer:
 $ composer require isometriks/spam-bundle
 ```
 
-Use `~0.3.0` for Symfony 2.3-2.7, or `~1.0` for 3+
-
-Add to AppKernel.php (done automatically for Symfony Flex):
+If you're not using Symfony Flex, add the bundle to your `config/bundles.php` file:
 
 ```php
-class AppKernel extends Kernel
-{
-    public function registerBundles()
-    {
-        $bundles = [
-            // ...
-            new Isometriks\Bundle\SpamBundle\IsometriksSpamBundle(),
-            // ...
-        ];
+// config/bundles.php
 
-        return $bundles;
-    }
-}
+return [
+    // ...
+    Isometriks\Bundle\SpamBundle\IsometriksSpamBundle::class => ['all' => true],
+];
 ```
 
 Currently we have:
